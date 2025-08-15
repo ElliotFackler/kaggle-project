@@ -25,6 +25,7 @@ combined_df['Fare'] = combined_df['Fare'].fillna(combined_df['Fare'].median())  
 
 combined_df['Sex'] = combined_df['Sex'].replace({'male': 0, 'female': 1})
 combined_df['Embarked'] = combined_df['Embarked'].replace({'S': 0, 'Q': 1, 'C': 2})
+combined_df['Fare'] = pd.cut(combined_df['Fare'], bins=range(0, int(combined_df['Fare'].max()) + 50, 50), labels=False, right=False)
 
 combined_df['FamilySize'] = combined_df['SibSp'] + combined_df['Parch'] + 1
 
@@ -83,6 +84,11 @@ plt.show()
 # Pclass vs. Survived
 sns.barplot(x='Pclass', y='Survived', data=train_processed_df)
 plt.title('Survival Rate by Pclass')
+plt.show()
+
+# Fare vs. Survived
+sns.barplot(x='Fare', y='Survived', data=train_processed_df)
+plt.title('Survival Rate by Fare Bin')
 plt.show()
 
 # Age distribution (with survival overlay)
